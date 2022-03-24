@@ -1,16 +1,23 @@
 import { useState } from 'react'
 import { FileNode } from './data'
+import { AiOutlineFolderOpen, AiFillFile } from 'react-icons/ai'
 
-const File: React.FC<FileNode> = ({ name, contents }: FileNode) => {
+const File: React.FC<FileNode> = ({ name, isFolder, contents }: FileNode) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const showChildren = () => {
     setIsOpen(!isOpen)
   }
 
+  const style = {
+    cursor: isFolder ? 'pointer' : 'default',
+  }
+
   return (
     <div>
-      <h4 onClick={showChildren}>{name}</h4>
+      <h4 onClick={showChildren} style={style}>
+        {isFolder ? <AiOutlineFolderOpen /> : <AiFillFile />} {name}
+      </h4>
       <div
         style={{
           position: 'relative',
